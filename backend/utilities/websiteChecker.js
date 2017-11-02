@@ -101,12 +101,27 @@ const checkActivePosts = async () => {
     where: {
       activeJobPosting: true,
     }
-  })
-  jobIds.forEach(job => {
+  });
+  // jobIds.forEach(job => {
+  //   if (job.screenShotUrl) {
+  //     comparePictures(job.jobId, job.url, job.screenShotUrl);
+  //   }
+  // })
+  let index = 0;
+  const loopThroughJobs = (index) => {
+    let job = jobIds[index]
     if (job.screenShotUrl) {
-      comparePictures(job.jobId, job.url, job.screenShotUrl);
+      comparePictures(job.jobId, job.url, job.screenShotUrl)
     }
-  })
+  }
+
+  let interval = setInterval(() => {
+    loopThroughJobs(index)
+    index++;
+    if (index === jobIds.length) {
+      clearInterval(interval);
+    }
+  }, 20000)
 }
 
 
